@@ -13,23 +13,27 @@ if(NOT CMAKE_BUILD_TYPE)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
+# SENSEI should always be position independent
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+# SENSEI requires minimum C++11
+if (NOT CMAKE_CXX_STANDARD OR CMAKE_CXX_STANDARD LESS 11)
+  set(CMAKE_CXX_STANDARD 11)
+endif ()
+
 if (NOT MSVC)
-  if (NOT CMAKE_CXX_FLAGS)
-  set(tmp "-fPIC -std=c++11 -Wall -Wextra")
+  string(APPEND CMAKE_CXX_FLAGS "-Wall -Wextra")
+
   if (BUILD_STATIC_EXECS)
-    set(tmp "${tmp} -static -static-libgcc -static-libstdc++ -pthread -Wl,-Bstatic")
-  endif()
-  if ((APPLE) AND ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang"))
-    set(tmp "${tmp} -stdlib=libc++")
-  endif()
-  if ("${CMAKE_BUILD_TYPE}" MATCHES "Release")
-    set(tmp "${tmp} -O3 -march=native -mtune=native")
-  endif()
-  set(CMAKE_CXX_FLAGS "${tmp}"
-    CACHE STRING "SENSEI build defaults"
-    FORCE)
-  endif()
-endif()
+    string(APPEND CMAKE_CXX_FLAGS "-static -static-libgcc -static-libstdc++ -pthread -Wl,-Bstatic")
+  endif ()
+endif ()
+
+if (APPLE)
+  if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+    string(APPEND CMAKE_CXX_FLAGS "-stdlib=libc++")
+  endif ()
+endif ()
 
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_BINARY_DIR})
