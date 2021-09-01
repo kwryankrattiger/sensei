@@ -1,13 +1,11 @@
-source /root/.bashrc
+set -e
+set -x
 
-# Install dependencies from the system
-dnf update -y --setopt=install_weak_deps=False
+source /root/.bashrc
 
 # These are required for running sensei tests
 dnf install -y --setopt=install_weak_deps=False \
   vim less bc
-
-dnf clean all
 
 # Install main dependencies with spack
 source ${SPACK_ROOT}/share/spack/setup-env.sh

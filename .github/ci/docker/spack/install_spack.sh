@@ -1,4 +1,5 @@
-dnf update -y --setopt=install_weak_deps=False
+set -e
+set -x
 
 # Install Spack requirements
 dnf install -y --setopt=install_weak_deps=False \
@@ -10,6 +11,7 @@ dnf install -y --setopt=install_weak_deps=False \
   git \
   gcc \
   g++ \
+  gfortran \
   gzip \
   patch \
   python \
@@ -23,8 +25,6 @@ dnf install -y --setopt=install_weak_deps=False \
 
 # Install clingo for new concretizer
 pip install clingo
-
-dnf clean all
 
 if [[ -z ${SPACK_ROOT} ]]; then
   if [[ ! -z $1 ]]; then
