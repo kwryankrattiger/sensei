@@ -27,7 +27,7 @@ pip install clingo
 dnf clean all
 
 if [[ -z ${SPACK_ROOT} ]]; then
-  if [[ ! -z $1 ]];
+  if [[ ! -z $1 ]]; then
     SPACK_ROOT=$1
   else
     SPACK_ROOT=/opt/spack
