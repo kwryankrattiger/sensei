@@ -1,3 +1,5 @@
+include(CheckCXXCompilerFlag)
+
 option(BUILD_SHARED_LIBS OFF "Build shared libraries by default")
 option(BUILD_STATIC_EXECS  OFF "Link executables statically")
 if (BUILD_STATIC_EXECS)
@@ -23,6 +25,14 @@ endif ()
 
 if (NOT MSVC)
   string(APPEND CMAKE_CXX_FLAGS "-Wall -Wextra")
+
+  set(optimization_flags " -mtune=native; -march=native")
+  foreach (flag ${optimization_flags})
+    check_cxx_compiler_flag(${flag} has_flag)
+    if(has_flag)
+      string(APPEND CMAKE_CXX_FLAGS ${flag})
+    endif ()
+  endforeach ()
 
   if (BUILD_STATIC_EXECS)
     string(APPEND CMAKE_CXX_FLAGS "-static -static-libgcc -static-libstdc++ -pthread -Wl,-Bstatic")
