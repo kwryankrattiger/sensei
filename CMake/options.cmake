@@ -81,8 +81,6 @@ option(ENABLE_CONDUITTEST "Enable Conduit miniapp (experimental)" OFF)
 option(ENABLE_KRIPKE "Enable Kripke miniapp (experimental)" OFF)
 option(SENSEI_USE_EXTERNAL_pugixml "Use external pugixml library" OFF)
 
-option(SENSEI_INSTALL_RELOCATABLE "Install SENSEI so the package may be relocated after install" OFF)
-
 message(STATUS "ENABLE_SENSEI=${ENABLE_SENSEI}")
 message(STATUS "ENABLE_PYTHON=${ENABLE_PYTHON}")
 message(STATUS "ENABLE_CATALYST=${ENABLE_CATALYST}")

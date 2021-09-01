@@ -8,15 +8,7 @@ include(CMakeFindDependencyMacro)
 
 if (NOT SENSEI_DIR)
   # Use relocatable lookup for SENSEI_DIR
-  if (@SENSEI_INSTALL_RELOCATABLE@)
-    set(SENSEI_DIR "${CMAKE_CURRENT_LIST_DIR}/../../")
-  else ()
-    if (@SENSEI_BUILD@)
-      set(SENSEI_DIR "@CMAKE_BINARY_DIR@")
-    else ()
-      set(SENSEI_DIR "@CMAKE_INSTALL_PREFIX@")
-    endif ()
-  endif ()
+  set(SENSEI_DIR "${CMAKE_CURRENT_LIST_DIR}/../../")
 endif ()
 
 list(APPEND CMAKE_MODULE_PATH "${SENSEI_DIR}")
