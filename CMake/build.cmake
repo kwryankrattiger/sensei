@@ -26,11 +26,13 @@ endif ()
 if (NOT MSVC)
   string(APPEND CMAKE_CXX_FLAGS "-Wall -Wextra")
 
+  # Need to explicitly set optimization level to -O3 because some systems default to -O2
+  set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
   set(optimization_flags " -mtune=native; -march=native")
   foreach (flag ${optimization_flags})
     check_cxx_compiler_flag(${flag} has_flag)
     if(has_flag)
-      string(APPEND CMAKE_CXX_FLAGS ${flag})
+      string(APPEND CMAKE_CXX_FLAGS_RELEASE ${flag})
     endif ()
   endforeach ()
 
